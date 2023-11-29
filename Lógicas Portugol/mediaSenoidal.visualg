@@ -1,0 +1,105 @@
+const
+  buzzer = 8
+fimconst
+
+vetor Sol1[3] = {0, 0, 0}, Laser[3] = {0, 0, 0}
+real s = 0, l = 0
+inteiro LDR_Sol1, LDR_Sol2, LDR_Laser, lum
+
+procedimento configuracao()
+inicio
+  escreval("Configurando...")
+  // Inicialização de pinos e configurações
+  A0 <- ENTRADA
+  A1 <- ENTRADA
+  A2 <- ENTRADA
+fimprocedimento
+
+funcao principal()
+inicio
+  configuracao()
+  repita
+    LDR_Sol1 <- analogico(A0)
+    lum <- mapear(LDR_Sol1, 0, 1023, 100, 0)
+    escreva("LDR1: ")
+    escreval(lum)
+
+    LDR_Laser <- analogico(A1)
+    escreva("LDR2: ")
+    lum <- mapear(LDR_Laser, 0, 1023, 100, 0)
+    escreval(lum)
+
+    LDR_Sol2 <- analogico(A2)
+    lum <- mapear(LDR_Sol2, 0, 1023, 100, 0)
+    escreva("LDR3: ")
+    escreval(lum)
+
+    inteiro diff1 <- abs(LDR_Sol1 - LDR_Laser)
+    inteiro diff2 <- abs(LDR_Laser - LDR_Sol2)
+    inteiro diff3 <- abs(LDR_Sol1 - LDR_Sol2)
+
+    se (LDR_Laser < LDR_Sol1 e LDR_Laser < LDR_Sol2) entao
+      para inteiro i de 0 ate 2 faca
+        escreval("Ativando buzzer...")
+        // Operações para ativar o buzzer
+        // Ajustar pinos conforme necessário
+        aguarde(250)
+        escreval("Desativando buzzer...")
+        // Operações para desativar o buzzer
+        // Ajustar pinos conforme necessário
+        aguarde(250)
+      fimpara
+    senao
+      se (diff2 > diff1) entao // Ou diff2 < diff1
+        escreval("Ativando dispositivo 1...")
+        // Operações para ativar dispositivo 1
+        // Ajustar pino conforme necessário
+        aguarde(500)
+        escreval("Desativando dispositivo 1...")
+        // Operações para desativar dispositivo 1
+        // Ajustar pino conforme necessário
+      senao // Se diff2 < diff1
+        escreval("Ativando dispositivo 2...")
+        // Operações para ativar dispositivo 2
+        // Ajustar pino conforme necessário
+        aguarde(500)
+        escreval("Desativando dispositivo 2...")
+        // Operações para desativar dispositivo 2
+        // Ajustar pino conforme necessário
+      fimse
+    fimse
+
+    escreval("Desativando todos os dispositivos...")
+    // Operações para desativar todos os dispositivos
+    // Ajustar pinos conforme necessário
+
+    // Lógica antiga
+    /*
+    se (LDR_Laser < LDR_Sol1 e LDR_Laser < LDR_Sol2) entao
+      escreval("Ativando buzzer...")
+      // Operações para ativar o buzzer
+      aguarde(50)
+      escreval("Desativando buzzer...")
+      // Operações para desativar o buzzer
+      aguarde(50)
+    senao
+      se (diff2 > diff1) entao
+        escreval("Ativando buzzer 2...")
+        // Operações para ativar o buzzer 2
+        aguarde(50)
+        escreval("Desativando buzzer 2...")
+        // Operações para desativar o buzzer 2
+        aguarde(50)
+      senao
+        escreval("Ativando buzzer 3...")
+        // Operações para ativar o buzzer 3
+        aguarde(50)
+        escreval("Desativando buzzer 3...")
+        // Operações para desativar o buzzer 3
+        aguarde(50)
+      fimse
+    fimse
+    */
+
+  ate que (falso) // Alterar a condição de repetição conforme necessário
+fimprincipal
